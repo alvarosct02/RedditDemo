@@ -8,6 +8,26 @@
     <fragment
         android:id="@+id/post_list_fragment"
         android:name="com.alvarosct.demo.reddit.features.postList.PostListFragment"
-        tools:layout="@layout/fragment_post_list" />
+        tools:layout="@layout/fragment_post_list">
+
+        <action
+            android:id="@+id/action_post_list_fragment_to_post_detail_fragment"
+            app:destination="@id/post_detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/post_detail_fragment"
+        android:name="com.alvarosct.demo.reddit.features.postDetail.PostDetailFragment"
+        tools:layout="@layout/fragment_post_detail">
+
+        <argument
+            android:name="post"
+            app:argType="com.alvarosct.demo.reddit.models.PostModel" />
+
+    </fragment>
 
 </navigation>

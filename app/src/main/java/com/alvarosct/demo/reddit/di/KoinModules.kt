@@ -9,6 +9,7 @@ import com.alvarosct.demo.reddit.data.source.api.RetrofitManager
 import com.alvarosct.demo.reddit.data.source.local.AppDatabase
 import com.alvarosct.demo.reddit.data.source.local.PostLocalSource
 import com.alvarosct.demo.reddit.data.source.local.PostLocalSourceImpl
+import com.alvarosct.demo.reddit.features.postDetail.PostDetailViewModel
 import com.alvarosct.demo.reddit.features.postList.PostListViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -35,4 +36,5 @@ val appModule = module {
 
 val viewModelsModule = module {
     viewModel { PostListViewModel(get()) }
+    viewModel { PostDetailViewModel(get()) }
 }

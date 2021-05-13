@@ -1,13 +1,20 @@
 package com.alvarosct.demo.reddit.features.postList
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alvarosct.demo.reddit.R
 import com.alvarosct.demo.reddit.databinding.FragmentPostListBinding
 import com.alvarosct.demo.reddit.features.base.BaseFragment
+import com.alvarosct.demo.reddit.models.PostModel
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class PostListFragment : BaseFragment() {
@@ -29,8 +36,6 @@ class PostListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupSwipeRefresh()
         setupRecyclerView()
-
-
     }
 
     private fun setupSwipeRefresh() {
@@ -42,22 +47,42 @@ class PostListFragment : BaseFragment() {
         }
     }
 
+    private fun getLayoutManager(ctx: Context) = when (resources.configuration.orientation) {
+        Configuration.ORIENTATION_PORTRAIT -> LinearLayoutManager(ctx)
+        else -> GridLayoutManager(ctx, 2)
+    }
+
     private fun setupRecyclerView() {
-        val linearLayoutManager = LinearLayoutManager(requireContext())
+        val customLayoutManager = getLayoutManager(requireContext())
         binding.rvPosts.apply {
-            adapter = CurrencyListAdapter(viewModel)
-            layoutManager = linearLayoutManager
+            adapter = CurrencyListAdapter(::openPostDetail)
+            layoutManager = customLayoutManager
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     if (viewModel.isLoading.value == true || viewModel.isLoadingMore.value == true || viewModel.isRefreshing.value == true) return
-                    val visibleItemCount: Int = linearLayoutManager.childCount
-                    val totalItemCount: Int = linearLayoutManager.itemCount
-                    val pastVisibleItems: Int = linearLayoutManager.findFirstVisibleItemPosition()
+                    val visibleItemCount: Int = customLayoutManager.childCount
+                    val totalItemCount: Int = customLayoutManager.itemCount
+                    val pastVisibleItems: Int = customLayoutManager.findFirstVisibleItemPosition()
                     if (pastVisibleItems + visibleItemCount >= totalItemCount) {
                         viewModel.requestMorePosts()
                     }
                 }
             })
+        }
+    }
+
+    private fun openPostDetail(post: PostModel) {
+
+        if (post.isImage) {
+            findNavController().navigate(
+                PostListFragmentDirections.actionPostListFragmentToPostDetailFragment(post)
+            )
+        } else {
+            Snackbar.make(binding.root, R.string.unsupported_format, Snackbar.LENGTH_SHORT).apply {
+                setAction(R.string.label_ok) {
+                    this.dismiss()
+                }
+            }.show()
         }
     }
 

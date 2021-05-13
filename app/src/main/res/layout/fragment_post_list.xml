@@ -18,19 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:isVisible="@{viewModel.isLoading}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </LinearLayout>
-
-
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/circle_loader"
                 android:layout_width="wrap_content"
@@ -45,8 +32,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Loading Posts..."
+                android:layout_marginTop="@dimen/size_small"
+                android:text="@string/loading_posts"
                 app:isVisible="@{viewModel.isLoading}"
                 app:layout_constraintEnd_toEndOf="@id/circle_loader"
                 app:layout_constraintStart_toStartOf="@id/circle_loader"

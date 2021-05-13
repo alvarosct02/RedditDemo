@@ -27,10 +27,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_constraintDimensionRatio="3:2" />
+            tools:background="?colorPrimary" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_group"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -48,9 +48,9 @@
             android:maxLines="2"
             android:text="@{post.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            app:layout_constraintEnd_toEndOf="@id/tv_title"
-            app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintEnd_toEndOf="@id/tv_group"
+            app:layout_constraintStart_toStartOf="@id/tv_group"
+            app:layout_constraintTop_toBottomOf="@id/tv_group"
             tools:text="@tools:sample/lorem/random" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

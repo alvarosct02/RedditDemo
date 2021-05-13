@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Reddit</string>
+
+    <string name="loading_posts">Cargando Publicaciones…</string>
+    <string name="unsupported_format">Ups! Aun no podemos abrir videos</string>
+    <string name="label_ok">OK</string>
+</resources>

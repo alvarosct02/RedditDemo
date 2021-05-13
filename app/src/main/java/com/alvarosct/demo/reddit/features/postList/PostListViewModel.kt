@@ -2,13 +2,14 @@ package com.alvarosct.demo.reddit.features.postList
 
 import androidx.lifecycle.*
 import com.alvarosct.demo.reddit.data.repository.PostRepository
+import com.alvarosct.demo.reddit.features.base.BaseViewModel
 import com.alvarosct.demo.reddit.models.PostModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class PostListViewModel(
     private val repository: PostRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     companion object {
         const val POST_PAGE_SIZE = 20
@@ -16,15 +17,6 @@ class PostListViewModel(
 
     private val _postsLiveData = repository.observePosts()
     val postsLiveData: LiveData<List<PostModel>> = _postsLiveData
-
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _isRefreshing = MutableLiveData(false)
-    val isRefreshing: LiveData<Boolean> = _isRefreshing
-
-    private val _isLoadingMore = MutableLiveData(false)
-    val isLoadingMore: LiveData<Boolean> = _isLoadingMore
 
     private var lastPost: String? = null
 

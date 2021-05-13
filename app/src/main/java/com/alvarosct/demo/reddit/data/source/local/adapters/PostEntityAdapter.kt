@@ -12,7 +12,7 @@ object PostEntityAdapter {
         title = model.title,
         subredditName = model.subredditName,
         thumbnail = model.thumbnailUrl,
-        isVideo = model.isVideo,
+        source = model.sourceUrl,
         upVotes = model.upVotes,
         createdUtc = model.createdUtc,
     )
@@ -22,7 +22,7 @@ object PostEntityAdapter {
         title = model.title,
         subredditName = model.subredditName,
         thumbnailUrl = model.thumbnail,
-        isVideo = model.isVideo,
+        sourceUrl = model.source,
         upVotes = model.upVotes,
         createdUtc = model.createdUtc,
     )

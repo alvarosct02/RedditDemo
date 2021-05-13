@@ -8,13 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alvarosct.demo.reddit.databinding.ItemListPostBinding
 import com.alvarosct.demo.reddit.models.PostModel
 
+
+typealias OnPostClicked = (PostModel) -> Unit
+
 class CurrencyListAdapter(
-    private val viewModel: PostListViewModel
+    private val onItemClick: OnPostClicked
 ) : ListAdapter<PostModel, CurrencyListAdapter.ViewHolder>(PostDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(viewModel, item)
+        holder.bind(onItemClick, item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,8 +27,8 @@ class CurrencyListAdapter(
     class ViewHolder(private val binding: ItemListPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: PostListViewModel, post: PostModel) {
-//            binding.viewModel = viewModel
+        fun bind(onItemClick: OnPostClicked, post: PostModel) {
+            binding.root.setOnClickListener { onItemClick.invoke(post) }
             binding.post = post
             binding.executePendingBindings()
         }
