@@ -32,9 +32,6 @@ jobs:
       - name: Give permissions
         run: sh .github/scripts/give_permissions_gradle.sh
 
-      - name: Give Git permissions
-        run: sh .github/scripts/give_git_permission.sh
-
       - name: Fetch Git tags
         run: sh .github/scripts/fetch_git_tags.sh
 
