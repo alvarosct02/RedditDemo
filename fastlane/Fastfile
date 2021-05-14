@@ -1,0 +1,120 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+
+  desc "Build Release"
+  lane :build_release do
+    gradle(task: "clean assembleRelease")
+  end
+
+  desc "Debug: Build "
+  lane :build_debug do
+    gradle(task: "clean assembleDebug")
+  end
+
+  desc "Debug: Run unit tests"
+  lane :unit_test_debug do
+    gradle(task: "testDebugUnitTest")
+  end
+
+  desc "Debug: Run/Test"
+  lane :build_and_test_debug do
+    build_debug
+    unit_test_debug
+  end
+
+  desc "Bump version Code"
+  lane :android_version_bump do
+    increment_version_code(
+        gradle_file_path: "app/build.gradle",
+        #ext_constant_name: "test"
+        #app_folder_name:"app"
+  )
+  end
+
+  lane :commit_version_changes do
+    version = get_version_code(
+      gradle_file_path:"app/build.gradle",
+      ext_constant_name:"versionCode"
+    )
+
+    git_commit(
+        path: ["app/build.gradle"],
+        message: "Increment Version Number to #{version}"
+    )
+    push_to_git_remote(
+        remote: "origin",
+        local_branch: "HEAD",
+        remote_branch: "develop",
+        tags: false
+    )
+  end
+
+  desc "Submit a new dev build to app center"
+  lane :deploy_app_to_appcenter do
+
+    android_version_bump
+
+    build_and_test_debug
+
+    deploy_to_appcenter
+
+    tag_release
+
+    commit_version_changes
+  end
+
+  lane :deploy_to_appcenter do
+    ensure_env_vars(
+      env_vars: ['APP_CENTER_TOKEN', 'APP_CENTER_OWNER', 'APP_CENTER_APP_NAME', 'APP_CENTER_DESTINATIONS']
+    )
+
+    tag = last_git_tag
+    if !tag
+        tag = "HEAD"
+    end
+
+    log = changelog_from_git_commits(
+        between: [tag, "HEAD"],
+        pretty: "fuller",
+        merge_commit_filtering: "only_include_merges"
+    )
+
+    appcenter_upload(
+      api_token: ENV["APP_CENTER_TOKEN"],
+      owner_name: ENV["APP_CENTER_OWNER"],
+      owner_type: "user",
+      app_name: ENV["APP_CENTER_APP_NAME"],
+      apk: "./app/build/outputs/apk/debug/app-debug.apk",
+      destinations: ENV["APP_CENTER_DESTINATIONS"],
+      release_notes: log
+    )
+  end
+
+  lane :tag_release do
+    version = get_version_code(
+      gradle_file_path:"app/build.gradle",
+      ext_constant_name:"versionCode"
+    )
+    add_git_tag(tag: "#{version}")
+    push_git_tags(tag: "#{version}")
+  end
+
+
+end
+
