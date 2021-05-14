@@ -5,17 +5,15 @@ import com.squareup.moshi.Json
 
 data class RedditPost(
     @field:Json(name = "id") val id: String,
-    @field:Json(name = "title") val title: String?,
-    @field:Json(name = "subreddit_name_prefixed") val subredditNamePrefixed: String?,
-    @field:Json(name = "thumbnail") val thumbnail: String?,
-    @field:Json(name = "is_video") val isVideo: Boolean?,
-    @field:Json(name = "ups") val upVotes: Long,
-    @field:Json(name = "preview") val preview: Preview?,
-    @field:Json(name = "url") val url: String?,
-    @field:Json(name = "created_utc") val createdUtc: Long,
-) {
-
-}
+    @field:Json(name = "title") val title: String? = null,
+    @field:Json(name = "subreddit_name_prefixed") val subredditNamePrefixed: String? = null,
+    @field:Json(name = "thumbnail") val thumbnail: String? = null,
+    @field:Json(name = "is_video") val isVideo: Boolean = false,
+    @field:Json(name = "ups") val upVotes: Long = 0,
+    @field:Json(name = "preview") val preview: Preview? = null,
+    @field:Json(name = "url") val url: String? = null,
+    @field:Json(name = "created_utc") val createdUtc: Long = 0,
+)
 
 data class Preview(
     @field:Json(name = "images") val images: List<PreviewImage>,

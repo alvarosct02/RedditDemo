@@ -1,8 +1,6 @@
 package com.alvarosct.demo.reddit.di
 
 import com.alvarosct.demo.reddit.BuildConfig
-import com.alvarosct.demo.reddit.utils.FileUtils
-import com.alvarosct.demo.reddit.utils.ResourceManager
 import com.alvarosct.demo.reddit.data.repository.PostRepository
 import com.alvarosct.demo.reddit.data.repository.PostRepositoryImpl
 import com.alvarosct.demo.reddit.data.source.api.PostApiSource
@@ -13,6 +11,8 @@ import com.alvarosct.demo.reddit.data.source.local.PostLocalSource
 import com.alvarosct.demo.reddit.data.source.local.PostLocalSourceImpl
 import com.alvarosct.demo.reddit.features.postDetail.PostDetailViewModel
 import com.alvarosct.demo.reddit.features.postList.PostListViewModel
+import com.alvarosct.demo.reddit.utils.FileUtils
+import com.alvarosct.demo.reddit.utils.ResourceManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -40,5 +40,5 @@ val appModule = module {
 
 val viewModelsModule = module {
     viewModel { PostListViewModel(get()) }
-    viewModel { PostDetailViewModel(get(), get(), get()) }
+    viewModel { PostDetailViewModel(get(), get()) }
 }

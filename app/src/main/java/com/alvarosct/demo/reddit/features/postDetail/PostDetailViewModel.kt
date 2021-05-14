@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PostDetailViewModel(
-    private val repository: PostRepository,
     private val resourceManager: ResourceManager,
     private val fileUtils: FileUtils,
 ) : BaseViewModel() {

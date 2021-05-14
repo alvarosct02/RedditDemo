@@ -9,7 +9,6 @@ import com.alvarosct.demo.reddit.models.PostModel
 
 interface PostLocalSource {
 
-    suspend fun savePost(model: PostModel)
     suspend fun savePosts(modelList: List<PostModel>)
     fun observePosts(): LiveData<List<PostModel>>
     suspend fun getPosts(): List<PostModel>
@@ -19,10 +18,6 @@ interface PostLocalSource {
 class PostLocalSourceImpl(
     private val postDao: PostDao
 ) : PostLocalSource {
-
-    override suspend fun savePost(model: PostModel) {
-        postDao.insert(PostEntityAdapter.fromModel(model))
-    }
 
     override suspend fun savePosts(modelList: List<PostModel>) {
         postDao.insertAll(modelList.map(PostEntityAdapter::fromModel))

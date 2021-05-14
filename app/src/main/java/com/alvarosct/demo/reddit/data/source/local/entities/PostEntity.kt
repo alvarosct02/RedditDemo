@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class PostEntity(
     @PrimaryKey val id: String,
-    val createdUtc: String,
+    val createdUtc: Long,
     val title: String,
     val subredditName: String,
     val upVotes: Long,
