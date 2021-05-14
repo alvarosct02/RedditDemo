@@ -10,6 +10,7 @@ data class RedditPost(
     @field:Json(name = "thumbnail") val thumbnail: String? = null,
     @field:Json(name = "is_video") val isVideo: Boolean = false,
     @field:Json(name = "ups") val upVotes: Long = 0,
+    @field:Json(name = "num_comments") val numComments: Long = 0,
     @field:Json(name = "preview") val preview: Preview? = null,
     @field:Json(name = "url") val url: String? = null,
     @field:Json(name = "created_utc") val createdUtc: Long = 0,

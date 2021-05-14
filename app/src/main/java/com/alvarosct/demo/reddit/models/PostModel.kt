@@ -10,6 +10,7 @@ data class PostModel(
     val subredditName: String = "",
     val title: String = "",
     val upVotes: Long = 0,
+    val comments: Long = 0,
     val thumbnailUrl: String = "",
     val sourceUrl: String? = null
 ) : Parcelable {
@@ -23,5 +24,19 @@ data class PostModel(
                 val isPng = it.endsWith("png", ignoreCase = true)
                 isJpg || isJpeg || isGif || isPng
             } ?: false
+        }
+
+    val upVoteString: String
+        get() = when {
+            upVotes >= 1000000 -> String.format("%.1f M", upVotes / 1000000.0)
+            upVotes >= 1000 -> String.format("%.1f K", upVotes / 1000.0)
+            else -> upVotes.toString()
+        }
+
+    val commentString: String
+        get() = when {
+            comments >= 1000000 -> String.format("%.1f M", comments / 1000000.0)
+            comments >= 1000 -> String.format("%.1f K", comments / 1000.0)
+            else -> comments.toString()
         }
 }

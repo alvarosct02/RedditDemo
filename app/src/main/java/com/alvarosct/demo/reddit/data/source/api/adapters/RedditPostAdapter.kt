@@ -14,6 +14,7 @@ object RedditPostAdapter {
         thumbnailUrl = model.thumbnail.orEmpty(),
         sourceUrl = model.url,
         upVotes = model.upVotes,
+        comments = model.numComments,
         createdUtc = model.createdUtc,
     )
 }

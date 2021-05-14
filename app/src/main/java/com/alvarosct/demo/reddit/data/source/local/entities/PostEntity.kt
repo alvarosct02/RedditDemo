@@ -11,6 +11,7 @@ data class PostEntity(
     val title: String,
     val subredditName: String,
     val upVotes: Long,
+    val comments: Long,
     val thumbnail: String,
     val source: String?,
 )

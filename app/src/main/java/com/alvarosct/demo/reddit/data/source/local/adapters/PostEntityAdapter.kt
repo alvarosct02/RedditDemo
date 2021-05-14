@@ -14,6 +14,7 @@ object PostEntityAdapter {
         thumbnail = model.thumbnailUrl,
         source = model.sourceUrl,
         upVotes = model.upVotes,
+        comments = model.comments,
         createdUtc = model.createdUtc,
     )
 
@@ -24,6 +25,7 @@ object PostEntityAdapter {
         thumbnailUrl = model.thumbnail,
         sourceUrl = model.source,
         upVotes = model.upVotes,
+        comments = model.comments,
         createdUtc = model.createdUtc,
     )
 }
