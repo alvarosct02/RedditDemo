@@ -1,4 +1,4 @@
-package com.alvarosct.demo.reddit
+package com.alvarosct.demo.reddit.utils
 
 import android.view.View
 import android.widget.ImageView

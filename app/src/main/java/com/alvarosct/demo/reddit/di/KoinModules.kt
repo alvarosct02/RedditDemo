@@ -1,6 +1,8 @@
 package com.alvarosct.demo.reddit.di
 
 import com.alvarosct.demo.reddit.BuildConfig
+import com.alvarosct.demo.reddit.utils.FileUtils
+import com.alvarosct.demo.reddit.utils.ResourceManager
 import com.alvarosct.demo.reddit.data.repository.PostRepository
 import com.alvarosct.demo.reddit.data.repository.PostRepositoryImpl
 import com.alvarosct.demo.reddit.data.source.api.PostApiSource
@@ -31,10 +33,12 @@ val appModule = module {
     single<PostApiSource> { PostApiSourceImpl(get()) }
     single<PostLocalSource> { PostLocalSourceImpl(get()) }
     single<PostRepository> { PostRepositoryImpl(get(), get()) }
+    single { FileUtils(androidContext()) }
+    single { ResourceManager(androidContext()) }
 
 }
 
 val viewModelsModule = module {
     viewModel { PostListViewModel(get()) }
-    viewModel { PostDetailViewModel(get()) }
+    viewModel { PostDetailViewModel(get(), get(), get()) }
 }

@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Reddit</string>
 
+    <string name="file_post_image_format">%1$s_post_%2$s</string>
+
     <string name="loading_posts">Loading Posts…</string>
     <string name="unsupported_format">Oops! Can\'t open videos yet</string>
+    <string name="save_complete">Image Saved!</string>
     <string name="label_ok">OK</string>
+    <string name="label_open">Open</string>
+    <string name="label_save">Save</string>
 </resources>
