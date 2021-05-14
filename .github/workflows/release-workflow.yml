@@ -38,9 +38,6 @@ jobs:
       - name: Fetch Git tags
         run: sh .github/scripts/fetch_git_tags.sh
 
-      - name: Bundle Install
-        run: bundle install
-
       - name: Update Fastlane
         run: bundle update fastlane
 
